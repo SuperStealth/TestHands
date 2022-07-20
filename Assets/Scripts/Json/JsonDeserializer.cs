@@ -4,10 +4,10 @@ namespace TestHands
 {
     public class JsonDeserializer
     {
-        private const string fileName = "json.json";
+        private const string FileName = "json.json";
         public DeviceInfo[] Deserialize()
         {
-            var json = File.ReadAllText(fileName);
+            var json = File.ReadAllText(FileName);
             var param = JsonHelper.FromJson<DeviceInfo>(json);
             return param;
         }

@@ -3,64 +3,64 @@ using UnityEngine;
 
 namespace TestHands
 {
-    public class DeviceHandler : MonoBehaviour
+    public class DeviceHandler : MonoBehaviour, IDeviceHandler
     {
-        private DeviceInfo deviceInfo;
+        private const float Speed = 1f;
 
-        private List<Vector3> actions;
-        private float speed = 1f;
+        private DeviceInfo _deviceInfo;
 
+        private List<Vector3> _actions;
+        
         private void Awake()
         {
-            actions = new List<Vector3>();
+            _actions = new List<Vector3>();
         }
 
         public void SetDeviceInfo(DeviceInfo deviceInfo)
         {
-            this.deviceInfo = deviceInfo;
-        }
-
-        public int GetId()
-        {
-            return deviceInfo.Id;
+            _deviceInfo = deviceInfo;
         }
 
         public void AddAction(Vector3 action)
         {
-            actions.Add(action);
+            _actions.Add(action);
         }
 
         public void Run()
         {
-            if (actions.Count == 0) return;
+            if (_actions.Count == 0) return;
 
-            if (actions.Count > 1 && deviceInfo.ThrowsException)
+            if (_actions.Count > 1 && _deviceInfo.ThrowsException)
             {
-                actions.Clear();
-                throw new System.Exception($"Действие устройства {deviceInfo.Id} не успело завершиться");
+                _actions.Clear();
+                throw new System.Exception($"Действие устройства {_deviceInfo.Id} не успело завершиться");
             }
 
-            if (!deviceInfo.HasQueue)
+            if (!_deviceInfo.HasQueue)
             {
-                while (actions.Count > 1)
+                while (_actions.Count > 1)
                 {
-                    actions.RemoveAt(0);
+                    _actions.RemoveAt(0);
                 }
             }
-            if (deviceInfo.IsDiscrete)
+            if (_deviceInfo.IsDiscrete)
             {
-                transform.rotation = Quaternion.Euler(actions[0]);
-                actions.RemoveAt(0);
+                transform.rotation = Quaternion.Euler(_actions[0]);
+                _actions.RemoveAt(0);
             }
             else
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(actions[0].x, actions[0].y, actions[0].z), speed * Time.deltaTime);
-                if (transform.rotation == Quaternion.Euler(actions[0]))
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(_actions[0].x, _actions[0].y, _actions[0].z), Speed * Time.deltaTime);
+                if (transform.rotation == Quaternion.Euler(_actions[0]))
                 {
-                    actions.RemoveAt(0);
+                    _actions.RemoveAt(0);
                 }
             }
+        }
 
+        public void Delete()
+        {
+            Destroy(gameObject);
         }
     }
 }

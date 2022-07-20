@@ -7,11 +7,11 @@ namespace TestHands
     {
         [SerializeField] private DeviceHandler device;
 
-        private Dictionary<int, DeviceHandler> deviceHandlers;
+        private Dictionary<int, IDeviceHandler> deviceHandlers;
 
         private void Awake()
         {
-            deviceHandlers = new Dictionary<int, DeviceHandler>();
+            deviceHandlers = new Dictionary<int, IDeviceHandler>();
             var jsonDeserializer = new JsonDeserializer();
             var devices = jsonDeserializer.Deserialize();
 
@@ -33,6 +33,7 @@ namespace TestHands
         {
             var newDevice = Instantiate(device);
             deviceHandlers.Add(deviceInfo.Id, newDevice);
+            newDevice.transform.position = new Vector3(deviceInfo.Id * 2f - 10, 0f, 0f);
             newDevice.transform.rotation = Quaternion.Euler(startState);
             newDevice.SetDeviceInfo(deviceInfo);
         }
@@ -46,7 +47,7 @@ namespace TestHands
         {
             var device = deviceHandlers[id];
             deviceHandlers.Remove(id);
-            Destroy(device.gameObject);
+            device.Delete();
         }
     }
 }

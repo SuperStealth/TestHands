@@ -331,9 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47252521a4b83af42bd95c37b1cb89e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runButton: {fileID: 1850775681}
-  inputField: {fileID: 284874317}
-  manager: {fileID: 537836879}
+  _runButton: {fileID: 1850775681}
+  _inputField: {fileID: 284874317}
+  _manager: {fileID: 537836879}
 --- !u!114 &458424257
 MonoBehaviour:
   m_ObjectHideFlags: 0
