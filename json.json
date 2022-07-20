@@ -1,0 +1,26 @@
+{
+  "Items": [
+    {
+      "Id": 1,
+      "IsDiscrete": false,
+      "HasQueue": true,
+      "ThrowsException": false,
+      "State": {
+        "x": 15,
+        "y": 25,
+        "z": 35
+      }
+    },
+    {
+      "Id": 2,
+      "IsDiscrete": false,
+      "HasQueue": false,
+      "ThrowsException": true,
+      "State": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      }
+    }
+  ]
+}

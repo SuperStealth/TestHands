@@ -17,4 +17,3 @@ namespace TestHands
         public Vector3 State;
     }
 }
-
